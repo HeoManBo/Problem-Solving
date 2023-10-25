@@ -8,7 +8,8 @@ using namespace std;
 //int dp[1010][10101];
 int N, K;
 int important[1010], needTime[1010];
-int dp[2][10101];
+//int dp[2][10101];
+int dp[10101];
 
 int main(void) {
 	cin >> N >> K;
@@ -32,7 +33,7 @@ int main(void) {
 	}*/
 	
 	//공간 복잡도 O(2 * N)
-	for (int i = 1; i <= K; i++) {
+	/*for (int i = 1; i <= K; i++) {
 		for (int j = 1; j <= N; j++) {
 			if (j - needTime[i] >= 0) {
 				if (i % 2 == 1) {
@@ -51,9 +52,19 @@ int main(void) {
 				}
 			}
 		}
+	}*/
+
+	//공간복잡도 O(N)
+
+	for (int i = 1; i <= K; i++) {
+		for (int j = N; j >= 0; j--) {
+			if (j - needTime[i] >= 0) {
+				dp[j] = max(dp[j], dp[j - needTime[i]] + important[i]);
+			}
+		}
 	}
 
-	cout << dp[K % 2][N] << "\n";
+	cout << dp[N] << "\n";
 
 	return 0;
 }
