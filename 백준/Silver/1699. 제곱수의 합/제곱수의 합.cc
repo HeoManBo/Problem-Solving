@@ -1,34 +1,22 @@
-#include<iostream>
-#include<algorithm>
-#include<stack>
-#include<vector>
-#include<string.h>
-#include<math.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 int N;
-int dp[101010]; // dp[x] : x를 표현하는데 필요한 항의 최소 갯수 
-int INF = 987654321;
-int solve(int now) {
-	if (now < 0) return INF;
-	if (now == 0) return 0;
+int dp[111'111];
 
-	int& ret = dp[now];
-	if (ret != -1) return ret;
-	ret = INF;
-
-	for (int i = sqrt(now); i >= 1; i--) {
-		ret = min(ret, solve(now - i * i) + 1);
+int main(void)
+{
+	cin >> N;
+	memset(dp, 0x3f, sizeof(dp));
+	dp[0] = 0;
+	dp[1] = 1;
+	for (int i = 2; i <= N; i++) {
+		for (int j = sqrt(i); j >= 1; j--) {
+			dp[i] = min(dp[i], dp[i - j * j] + 1);
+		}
 	}
 
-	return ret;
-}
-
-int main(void) {
-	cin >> N;
-	memset(dp, -1, sizeof(dp));
-
-	cout << solve(N) << '\n';
+	cout << dp[N] << '\n';
 
 	return 0;
 }
