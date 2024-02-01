@@ -9,7 +9,7 @@ struct cost {
 
 int N, M;
 int path[101010]; 
-long long delta[101010] ; // i일에 어디 여행지로 가야하는지
+long long delta[101010] ; // i번 철도길을 몇 번 이용하는지
 cost c[101010];
 int main(void)
 {
