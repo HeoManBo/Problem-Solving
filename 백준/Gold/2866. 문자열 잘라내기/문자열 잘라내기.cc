@@ -55,13 +55,14 @@ int main(void) {
 
 	int l = 0, r = N-1; //자를 문자열 길이
 	int ans = 0;
+
 	while (l <= r) {
 		int mid = (l + r) / 2;
 
 		bool flag = isValid(mid);
 
 		if (flag) {
-			ans = l;
+			ans = mid;
 			l = mid + 1;
 		}
 		else {
@@ -69,6 +70,6 @@ int main(void) {
 		}
 	}
 
-	cout << l-1 << '\n';
+	cout << ans << '\n';
 	return 0;
 }
