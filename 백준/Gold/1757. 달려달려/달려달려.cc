@@ -30,7 +30,7 @@ int go(int now, int m) {
 	if (m == 0) { //이미 기운이 0인데도 쉬는 경우 다음 단계
 		ret = max(ret, go(now + 1, 0));
 	}
-	else { // m단계만큼 패스 
+	else { // 그렇지 않으면 m단계만큼 패스 
 		ret = max(ret, go(now + m, 0));
 	}
 	
@@ -43,9 +43,20 @@ int main(void)
 	for (int i = 1; i <= N; i++) {
 		cin >> dist[i];
 	}
-	memset(dp, -1, sizeof(dp));
+	
+	//memset(dp, -1, sizeof(dp));
+	//cout << go(1, 0) << '\n';
 
-	cout << go(1, 0) << '\n';
+	dp[0][0] = 0;
+	for (int i = 1; i <= N; i++) {
+		dp[i][0] = max(dp[i][0], dp[i - 1][0]);
+		for (int j = 0; j <= M; j++) {
+			dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j] + dist[i]);
+			dp[i + j][0] = max(dp[i + j][0], dp[i][j]);
+		}
+	}
+
+	cout << max(dp[n][0], dp[n + 1][0]);
 
 	return 0;
 }
