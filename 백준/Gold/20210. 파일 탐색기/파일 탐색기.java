@@ -37,51 +37,58 @@ public class Main {
 
                 //둘다 숫자인 경우
                 if(Character.isDigit(a1) && Character.isDigit(b1)){
-                    StringBuilder sb1 = new StringBuilder();
-                    StringBuilder sb2 = new StringBuilder();
-                    sb1.append(a1 - '0');
-                    sb2.append(b1 - '0');
-                    //숫자가 아닐때까지 계속 이어 붙임
-                    int aIdx = i+1;
-                    int bIdx = i+1;
+                    //0 개수 세기
+                    int aIdx = i;
+                    int bIdx = i;
+                    int zeroA = 0;
+                    int zeroB = 0;
                     while(aIdx < a.length() && Character.isDigit(a.charAt(aIdx))){
-                        sb1.append(a.charAt(aIdx++) - '0');
+                        if(a.charAt(aIdx) == '0') {
+                            zeroA++;
+                            aIdx++;
+                        }else{
+                            break;
+                        }
                     }
                     while(bIdx < b.length() && Character.isDigit(b.charAt(bIdx))){
-                        sb2.append(b.charAt(bIdx++) - '0');
+                        if(b.charAt(bIdx) == '0') {
+                            zeroB++;
+                            bIdx++;
+                        }else{
+                            break;
+                        }
                     }
-                    BigInteger aNum = new BigInteger(sb1.toString());
-                    BigInteger bNum = new BigInteger(sb2.toString());
-                    //두개의 수가 같은지 확인
-                    if(aNum.equals(bNum)){
-                        int aZero = 0;
-                        int bZero = 0;
-                        aIdx = 0;
-                        bIdx = 0;
-                        while(aIdx < sb1.length() && Character.isDigit(sb1.charAt(aIdx))){
-                            int c = sb1.charAt(aIdx++) -'0';
-                            if(c == 0){ //맨 앞의 0의 개수 세기
-                                aZero++;
-                            }else{
-                                break;
-                            }
-                        }
-                        while(bIdx < sb2.length() && Character.isDigit(sb2.charAt(bIdx))){
-                            int d = sb2.charAt(bIdx++) -'0';
-                            if(d == 0){ //맨 앞의 0의 개수 세기
-                                bZero++;
-                            }else{
-                                break;
-                            }
-                        }
-                        if(aZero == bZero){ // 두 개의 0이 같은 경우 계속 진행
-                            i = (i+aIdx) - 1;
-                            continue;
-                        }
-                        return aZero - bZero;
-                    }else{
-                        return aNum.compareTo(bNum);
+                    StringBuilder sb1 = new StringBuilder();
+                    StringBuilder sb2 = new StringBuilder();
+                    //실제 숫자 붙이기
+                    while (aIdx < a.length() && Character.isDigit(a.charAt(aIdx))) {
+                        sb1.append(a.charAt(aIdx++));
                     }
+                    while (bIdx < b.length() && Character.isDigit(b.charAt(bIdx))) {
+                        sb2.append(b.charAt(bIdx++));
+                    }
+
+                    //앞의 0을 제외한 실제 숫자
+                    String realNumberA = sb1.toString();
+                    String realNumberB = sb2.toString();
+
+                    //실제 숫자 비교
+                    if(realNumberA.length() > realNumberB.length()) return 1;
+                    if(realNumberA.length() < realNumberB.length()) return -1;
+
+                    // 위의 두 조건문이 같다면 숫자의 길이가 같으므로 앞자리 수부터 비교
+                    for (int ii = 0; ii < realNumberA.length(); ii++) {
+                        if(realNumberA.charAt(ii) > realNumberB.charAt(ii)) return 1;
+                        if(realNumberA.charAt(ii) < realNumberB.charAt(ii)) return -1;
+                    }
+
+                    // 이제 0의 개수
+                    if (zeroA != zeroB) {
+                        return zeroA - zeroB;
+                    }
+
+                    //0의 개수까지 같다면 다음 idx로
+                    i = aIdx - 1;
                 }
                 //a1만 숫자 인 경우
                 else if(Character.isDigit(a1) && Character.isLetter(b1)){
