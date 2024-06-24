@@ -34,6 +34,55 @@ public class Main {
             for(int i=0; i<minLength; i++) {
                 char a1 = a.charAt(i);
                 char b1 = b.charAt(i);
+                //이전 풀이 
+                //  //둘다 숫자인 경우
+                // if(Character.isDigit(a1) && Character.isDigit(b1)){
+                //     StringBuilder sb1 = new StringBuilder();
+                //     StringBuilder sb2 = new StringBuilder();
+                //     sb1.append(a1 - '0');
+                //     sb2.append(b1 - '0');
+                //     //숫자가 아닐때까지 계속 이어 붙임
+                //     int aIdx = i+1;
+                //     int bIdx = i+1;
+                //     while(aIdx < a.length() && Character.isDigit(a.charAt(aIdx))){
+                //         sb1.append(a.charAt(aIdx++) - '0');
+                //     }
+                //     while(bIdx < b.length() && Character.isDigit(b.charAt(bIdx))){
+                //         sb2.append(b.charAt(bIdx++) - '0');
+                //     }
+                //     BigInteger aNum = new BigInteger(sb1.toString());
+                //     BigInteger bNum = new BigInteger(sb2.toString());
+                //     //두개의 수가 같은지 확인
+                //     if(aNum.equals(bNum)){
+                //         int aZero = 0;
+                //         int bZero = 0;
+                //         aIdx = 0;
+                //         bIdx = 0;
+                //         while(aIdx < sb1.length() && Character.isDigit(sb1.charAt(aIdx))){
+                //             int c = sb1.charAt(aIdx++) -'0';
+                //             if(c == 0){ //맨 앞의 0의 개수 세기
+                //                 aZero++;
+                //             }else{
+                //                 break;
+                //             }
+                //         }
+                //         while(bIdx < sb2.length() && Character.isDigit(sb2.charAt(bIdx))){
+                //             int d = sb2.charAt(bIdx++) -'0';
+                //             if(d == 0){ //맨 앞의 0의 개수 세기
+                //                 bZero++;
+                //             }else{
+                //                 break;
+                //             }
+                //         }
+                //         if(aZero == bZero){ // 두 개의 0이 같은 경우 계속 진행
+                //             i = (i+aIdx) - 1;
+                //             continue;
+                //         }
+                //         return aZero - bZero;
+                //     }else{
+                //         return aNum.compareTo(bNum);
+                //     }
+                // }
 
                 //둘다 숫자인 경우
                 if(Character.isDigit(a1) && Character.isDigit(b1)){
